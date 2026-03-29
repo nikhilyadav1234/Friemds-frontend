@@ -295,14 +295,14 @@ useEffect(() => {
     }
   };
 
-  const fetchMessages = async () => {
-    try {
-      const res = await axios.get(`${API}/messages/${friendId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setMessages(res.data);
-    } catch {}
-  };
+  // const fetchMessages = async () => {
+  //   try {
+  //     const res = await axios.get(`${API}/messages/${friendId}`, {
+  //       headers: { Authorization: `Bearer ${token}` }
+  //     });
+  //     setMessages(res.data);
+  //   } catch {}
+  // };
 
   const sendMessage = async (e) => {
   e.preventDefault();
@@ -362,7 +362,7 @@ useEffect(() => {
 
         <Avatar>
           { friend?.avatar ? (
-              <img src={friend.avatar} className="w-full h-full object-cover rounded-full"/>
+              <img src={friend.avatar} className="w-full h-full object-cover rounded-full" alt="chat"/>
             ) : (
               <AvatarFallback>{getInitials(friend?.name)}</AvatarFallback>
             )}

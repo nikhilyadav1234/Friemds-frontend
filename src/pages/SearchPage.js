@@ -228,7 +228,7 @@
 
 
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback  } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -254,8 +254,7 @@ export default function SearchPage() {
 
   const token = localStorage.getItem('friemds_token');
 
-const handleSearch = async (e) => {
-  e.preventDefault();
+const handleSearch = useCallback(async () => {
   setLoading(true);
 
   try {
@@ -274,13 +273,13 @@ const handleSearch = async (e) => {
   } finally {
     setLoading(false);
   }
-};
+}, [query, token]);
 
 useEffect(() => {
   if (query.length > 2) {
-    handleSearch({ preventDefault: () => {} });
+    handleSearch();
   }
-}, [query]);
+}, [query, handleSearch]);
 
 
   const sendFriendRequest = async (id) => {
@@ -310,7 +309,10 @@ useEffect(() => {
 
         {/* SEARCH BAR */}
         <motion.form
-          onSubmit={handleSearch}
+         onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-4"
@@ -391,7 +393,7 @@ useEffect(() => {
                   <div className="flex gap-3 items-center">
                     <Avatar>
                       { s.avatar ? (
-                          <img src={s.avatar} className="w-full h-full object-cover rounded-full"/>
+                          <img src={s.avatar} className="w-full h-full object-cover rounded-full" alt="user"/>
                         ) : (
                           <AvatarFallback>{getInitials(s.name)}</AvatarFallback>
                         )}

@@ -158,9 +158,7 @@ export default function FriendsPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem('friemds_token');
 
-  useEffect(() => {
-    fetchFriends();
-  }, []);
+ 
 
   const fetchFriends = async () => {
     try {
@@ -174,6 +172,9 @@ export default function FriendsPage() {
       setLoading(false);
     }
   };
+   useEffect(() => {
+    fetchFriends();
+  }, [fetchFriends]);
 
   const getInitials = (name) =>
     name.split(' ').map(n => n[0]).join('').toUpperCase();
@@ -234,7 +235,7 @@ export default function FriendsPage() {
                     <div className="flex items-center gap-3">
                       <Avatar>
                         { f.avatar ? (
-                            <img src={f.avatar} className="w-full h-full object-cover rounded-full"/>
+                            <img src={f.avatar} className="w-full h-full object-cover rounded-full" alt="friend"/>
                           ) : (
                             <AvatarFallback>{getInitials(f.name)}</AvatarFallback>
                           )}

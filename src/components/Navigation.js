@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Home, Users, MessageCircle, User, Search } from 'lucide-react';
+// import { Home, Users, MessageCircle, User, Search } from 'lucide-react';
+import { Home, Users, User, Search } from 'lucide-react';
+
 
 export const Navigation = ({ currentPage }) => {
   const navigate = useNavigate();

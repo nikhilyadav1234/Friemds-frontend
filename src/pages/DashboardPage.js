@@ -413,7 +413,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users, UserPlus, Heart } from 'lucide-react';
+// import { Users, UserPlus, Heart } from 'lucide-react';
+import {  Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -437,7 +438,7 @@ export default function DashboardPage({ user }) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const fetchData = async () => {
     try {
@@ -570,7 +571,7 @@ export default function DashboardPage({ user }) {
       >
 
         {students[0].avatar ? (
-          <img src={students[0].avatar} className="w-full h-full object-cover"/>
+          <img src={students[0].avatar} className="w-full h-full object-cover" alt="user"/>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-5xl">
             {getInitials(students[0].name)}
