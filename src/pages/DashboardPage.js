@@ -436,9 +436,7 @@ export default function DashboardPage({ user }) {
   const navigate = useNavigate();
   const token = localStorage.getItem('friemds_token');
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  
 
   const fetchData = async () => {
     try {
@@ -458,6 +456,9 @@ export default function DashboardPage({ user }) {
       setLoading(false);  
     }
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const sendFriendRequest = async (id) => {
     try {
