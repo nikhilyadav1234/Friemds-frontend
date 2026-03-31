@@ -156,8 +156,7 @@ export default function FriendsPage() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem('friemds_token');
-
+const token = sessionStorage.getItem('friemds_token');
  
 
   const fetchFriends = async () => {

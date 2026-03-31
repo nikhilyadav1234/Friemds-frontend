@@ -324,8 +324,7 @@ export default function ProfilePage({ user, setUser, onLogout }) {
     major: user?.major || ''
   });
 
-  const token = localStorage.getItem('friemds_token');
-
+const token = sessionStorage.getItem('friemds_token');
   const handleSave = async () => {
     setLoading(true);
     try {

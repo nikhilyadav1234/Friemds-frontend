@@ -232,7 +232,8 @@ export default function ChatPage({ user }) {
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('friemds_token');
+  // const token = localStorage.getItem('friemds_token');
+  const token = sessionStorage.getItem('friemds_token');
 
 useEffect(() => {
   fetchData();

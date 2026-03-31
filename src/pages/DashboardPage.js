@@ -432,22 +432,22 @@ export default function DashboardPage({ user }) {
   const [students, setStudents] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [friends, setFriends] = useState([]);
   const navigate = useNavigate();
-  const token = localStorage.getItem('friemds_token');
-
+const token = sessionStorage.getItem('friemds_token');
   
 
   const fetchData = async () => {
     try {
-      const [studentsRes, requestsRes] = await Promise.all([
-        axios.get(`${API}/users`, {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
-        axios.get(`${API}/friends/requests`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-      ]);
+      const [studentsRes, requestsRes, friendsRes] = await Promise.all([
+  axios.get(`${API}/users`, { headers: { Authorization: `Bearer ${token}` } }),
+  axios.get(`${API}/friends/requests`, { headers: { Authorization: `Bearer ${token}` } }),
+  axios.get(`${API}/friends`, { headers: { Authorization: `Bearer ${token}` } }) // 🔥 ADD
+]);
+
+setStudents(studentsRes.data.users || studentsRes.data);
+setFriendRequests(requestsRes.data);
+setFriends(friendsRes.data); // 🔥 ADD
       setStudents(studentsRes.data.users || studentsRes.data);
       setFriendRequests(requestsRes.data);
     } catch {
@@ -639,6 +639,23 @@ export default function DashboardPage({ user }) {
 
       </div>
 
+
+
+      
+{friends.length > 0 && (
+  <div className="mt-10">
+    <h3>Your Friends</h3>
+
+    {friends.map(f => (
+      <div key={f.user_id} style={{display:"flex", justifyContent:"space-between", marginBottom:"10px"}}>
+        <span>{f.name}</span>
+        <button onClick={() => navigate(`/chat/${f.user_id}`)}>
+          Chat
+        </button>
+      </div>
+    ))}
+  </div>
+)}
       <Navigation currentPage="home"/>
     </div>
   );

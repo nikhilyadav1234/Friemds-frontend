@@ -252,8 +252,7 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
-  const token = localStorage.getItem('friemds_token');
-
+const token = sessionStorage.getItem('friemds_token');
 const handleSearch = useCallback(async () => {
   setLoading(true);
 
