@@ -450,7 +450,7 @@ const token = sessionStorage.getItem('friemds_token');
 setStudents(studentsRes.data.users || studentsRes.data);
 setFriendRequests(requestsRes.data);
 setFriends(friendsRes.data); // 🔥 ADD
-const messages = msgRes.data;
+const messages = msgRes.data.map(m => m.lastMessage);
 
 // map: friendId → latest message time
 const lastMap = {};
@@ -482,8 +482,14 @@ setSortedFriends(sorted);
     }
   };
   useEffect(() => {
+  fetchData();
+
+  const interval = setInterval(() => {
     fetchData();
-  }, []);
+  }, 3000); // 3 sec
+
+  return () => clearInterval(interval);
+}, []);
 
   const sendFriendRequest = async (id) => {
     try {
@@ -691,6 +697,7 @@ setSortedFriends(sorted);
     ))}
   </div>
 )}
+
       <Navigation currentPage="home"/>
     </div>
   );
