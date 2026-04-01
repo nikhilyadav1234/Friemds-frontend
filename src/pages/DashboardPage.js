@@ -423,6 +423,11 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 
+
+const shuffleArray = (array) => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
+
 const getId = (u) => u.user_id || u._id;
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -436,7 +441,7 @@ export default function DashboardPage({ user }) {
   const [sortedFriends, setSortedFriends] = useState([]);
   const navigate = useNavigate();
 const token = sessionStorage.getItem('friemds_token');
-  
+
 
   const fetchData = async () => {
     try {
@@ -447,7 +452,8 @@ const token = sessionStorage.getItem('friemds_token');
   axios.get(`${API}/messages/last`, { headers: { Authorization: `Bearer ${token}` } })
 ]);
 
-setStudents(studentsRes.data.users || studentsRes.data);
+const usersData = studentsRes.data.users || studentsRes.data;
+setStudents(shuffleArray(usersData));
 setFriendRequests(requestsRes.data);
 setFriends(friendsRes.data); // 🔥 ADD
 const messages = msgRes.data.map(m => m.lastMessage);
@@ -484,9 +490,9 @@ setSortedFriends(sorted);
   useEffect(() => {
   fetchData();
 
-  const interval = setInterval(() => {
-    fetchData();
-  }, 3000); // 3 sec
+ useEffect(() => {
+  fetchData();
+}, []);
 
   return () => clearInterval(interval);
 }, []);
