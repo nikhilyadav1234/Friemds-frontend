@@ -487,14 +487,18 @@ setSortedFriends(sorted);
       setLoading(false);  
     }
   };
-  useEffect(() => {
-  fetchData();
+//   useEffect(() => {
+//   fetchData();
 
- useEffect(() => {
-  fetchData();
-}, []);
+//  useEffect(() => {
+//   fetchData();
+// }, []);
 
-  return () => clearInterval(interval);
+//   return () => clearInterval(interval);
+// }, []);
+
+useEffect(() => {
+  fetchData();
 }, []);
 
   const sendFriendRequest = async (id) => {
